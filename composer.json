@@ -1,0 +1,27 @@
+{
+    "name": "bakaidev/proxy",
+    "description": "ivelum job proxy",
+    "authors": [
+        {
+            "name": "Bakai Jumadulov",
+            "email": "developer.bakai@gmail.com",
+            "homepage": "https://github.com/bakaiDev"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-curl": "*",
+        "symfony/http-foundation": "^6.0",
+        "symfony/expression-language": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "RestProxy\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
