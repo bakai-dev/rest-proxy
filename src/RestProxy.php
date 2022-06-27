@@ -85,14 +85,18 @@ final class RestProxy
      */
     public function getContent(): string
     {
-        // Replace assets URL to proxy
-        $this->content = str_replace('type="text/css" href="','type="text/css" href="'. 'https://news.ycombinator.com'.'/', $this->content);
-        $this->content = str_replace('<img src="','<img src="'. 'https://news.ycombinator.com'.'/', $this->content);
-        $this->content = str_replace('type="text/javascript" src="','type="text/javascript" src="'. 'https://news.ycombinator.com'.'/', $this->content);
+        foreach($this->headers as $value) {
+            list($key, $value) = explode(': ', $value);
+            if ($key == 'Content-Type') {
+                // Added text ™ content type
+                if (str_contains($value, 'text/html')) {
+                    // Added  ™ text
+                    $TMTextPattern = '/ [0-9a-zA-Z]{6,} /';
+                    $this->content = preg_replace($TMTextPattern, '$0™ ', $this->content);
+                }
+            }
+        }
 
-        // Added  ™ text
-        $TMTextPattern = '/ [0-9a-zA-Z]{6,} /';
-        $this->content = preg_replace($TMTextPattern, '$0™ ', $this->content);
         return $this->content;
     }
 
