@@ -91,9 +91,17 @@ final class RestProxy
                 // Added text ™ content type
                 if (str_contains($value, 'text/html')) {
                     $this->content = str_replace('https://news.ycombinator.com', 'http://localhost:8232', $this->content);
+
                     // Added  ™ text
-                    $TMTextPattern = '/ [0-9a-zA-Z]{6,} /';
-                    $this->content = preg_replace($TMTextPattern, '$0™ ', $this->content);
+                    $TMTextPatterns = ['/>[0-9a-zA-Z]{6}</', '/ [0-9a-zA-Z]{6} /', '/>[0-9a-zA-Z]{6} /'];
+                    foreach ($TMTextPatterns as $pattern) {
+                        $this->content = preg_replace($pattern, '$0™ ', $this->content);
+                    }
+
+                    $replaceTexts = [' ™', '<™ /a>'];
+                    foreach ($replaceTexts as $replaceText) {
+                        $this->content = str_replace($replaceText, '™', $this->content);
+                    }
                 }
             }
         }
