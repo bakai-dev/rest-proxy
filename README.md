@@ -53,7 +53,7 @@ composer install
 Run dummy server (local PHP CLI)
 
 ```
-php -S localhost:8232 -t public/
+php -S localhost:8232 public/index.php 
 ```
 
 Open a web browser and type: http://localhost:8232/item?id=13713480
