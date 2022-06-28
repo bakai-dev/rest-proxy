@@ -93,15 +93,20 @@ final class RestProxy
                     $this->content = str_replace('https://news.ycombinator.com', 'http://localhost:8232', $this->content);
 
                     // Added  ™ text
-                    $TMTextPatterns = ['/>[0-9a-zA-Z]{6}</', '/ [0-9a-zA-Z]{6} /', '/>[0-9a-zA-Z]{6} /'];
+                    // TODO make better regular pattern
+                    $TMTextPatterns = ['/>[0-9a-zA-Z.]{6}</', '/ [0-9a-zA-Z.]{6} /', '/>[0-9a-zA-Z.]{6} /', '/ [0-9a-zA-Z.]{6}[?:!.,<]{1}/'];
                     foreach ($TMTextPatterns as $pattern) {
                         $this->content = preg_replace($pattern, '$0™ ', $this->content);
                     }
-
-                    $replaceTexts = [' ™', '<™ /a>'];
+                    $replaceTexts = [' ™', '<™ /a>', 's<™ /i>','<™ /i>','<™ /span>'];
                     foreach ($replaceTexts as $replaceText) {
                         $this->content = str_replace($replaceText, '™', $this->content);
                     }
+                    $this->content = str_replace('.™', '™.', $this->content);
+                    $this->content = str_replace(',™', '™,', $this->content);
+                    $this->content = str_replace(':™', '™:', $this->content);
+                    $this->content = str_replace('!™', '™!', $this->content);
+                    $this->content = str_replace('?™', '™?', $this->content);
                 }
             }
         }
