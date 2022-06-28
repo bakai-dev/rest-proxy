@@ -138,6 +138,10 @@ class CurlWrapper
 
         list($this->responseHeaders, $content) = $this->decodeOut($out);
 
+        // Set status code
+        if ($this->status != self::HTTP_OK) {
+            http_response_code($this->status);
+        }
         return $content;
     }
 
